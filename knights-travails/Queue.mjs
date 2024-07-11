@@ -1,9 +1,16 @@
+/** Represents a queue */
 export default class Queue {
+  /** Creates a new queue */
   constructor() {
     this._head = null;
     this._tail = null;
   }
 
+  /**
+   * Adds a value to the end of the queue
+   *
+   * @param {any} value
+   */
   enqueue(value) {
     const node = { value, next: null };
 
@@ -16,6 +23,11 @@ export default class Queue {
     }
   }
 
+  /**
+   * Removes and returns the first value in the queue
+   *
+   * @returns {any}
+   */
   dequeue() {
     if (!this._head) {
       return null;
@@ -31,6 +43,11 @@ export default class Queue {
     return node.value;
   }
 
+  /**
+   * Checks if the queue is empty
+   *
+   * @return {boolean} - True if the queue is empty, false otherwise
+   */
   isEmpty() {
     return !this._head;
   }

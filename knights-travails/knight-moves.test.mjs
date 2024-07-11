@@ -1,12 +1,14 @@
 import { buildGraph, knightMoves } from "./knight-moves.mjs";
 import * as assert from "assert";
 
+// Build a graph
 const graph = buildGraph();
 
 graph.forEach((vertex, key) => {
   console.log(`${key}: ${JSON.stringify(vertex)}`);
 });
 
+// Test knightMoves
 const pathCases = [
   {
     source: [0, 0],

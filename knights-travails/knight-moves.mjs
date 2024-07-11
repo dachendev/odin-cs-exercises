@@ -1,15 +1,40 @@
+/**
+ * @typedef {{value: [number, number], edges: number[]}} GraphNode
+ */
+
 import Queue from "./Queue.mjs";
 
+/**
+ * The size of the chessboard
+ */
 const boardSize = 8;
 
+/**
+ * Calculates the hash value for a given position on the board
+ *
+ * @param {[number, number]} pos - The position coordinates [x, y]
+ * @return {number} The calculated hash value
+ */
 function hash(pos) {
   return pos[0] * boardSize + pos[1];
 }
 
+/**
+ * Determines if the given position is within the bounds of the board
+ *
+ * @param {[number, number]} pos - The position coordinates [x, y]
+ * @return {boolean} True if the position is on the board, false otherwise
+ */
 function onBoard(pos) {
   return pos[0] >= 0 && pos[0] < boardSize && pos[1] >= 0 && pos[1] < boardSize;
 }
 
+/**
+ * Returns an array of possible moves for a knight on a chessboard
+ *
+ * @param {[number, number]} source - The starting position of the knight as a tuple of coordinates [x, y]
+ * @return {[number, number][]} An array of possible moves as tuples of coordinates
+ */
 function possibleMoves(source) {
   const [x, y] = source;
 
@@ -25,6 +50,11 @@ function possibleMoves(source) {
   ];
 }
 
+/**
+ * Builds a graph representing the chessboard
+ *
+ * @return {GraphNode[]} The built graph representing the chessboard
+ */
 export function buildGraph() {
   const graph = new Array(boardSize ** 2);
 
@@ -45,6 +75,14 @@ export function buildGraph() {
   return graph;
 }
 
+/**
+ * Finds the shortest path from the source to the target using the Breadth-First Search algorithm
+ *
+ * @param {GraphNode[]} graph - The graph represented as an array of objects, where each object contains the value and edges of a vertex
+ * @param {number[]} source - The starting position of the knight as a tuple of coordinates [x, y]
+ * @param {number[]} target - The target position of the knight as a tuple of coordinates [x, y]
+ * @return {number[]} The shortest path from the source to the target as an array of tuples of coordinates
+ */
 export function knightMoves(graph, source, target) {
   const sourceKey = hash(source);
   const targetKey = hash(target);
