@@ -87,14 +87,14 @@ export function knightMoves(graph, source, target) {
   const sourceKey = hash(source);
   const targetKey = hash(target);
 
-  // implement dijkstra without weighted edges
   const q = new Queue();
   const visited = new Set();
   const prev = new Array(graph.length);
 
   q.enqueue(sourceKey);
 
-  while (!q.isEmpty()) {
+  // bfs
+  search: while (!q.isEmpty()) {
     const currentKey = q.dequeue();
     const edges = graph[currentKey].edges;
 
@@ -103,15 +103,25 @@ export function knightMoves(graph, source, target) {
     }
 
     for (const edge of edges) {
-      if (!visited.has(edge)) {
-        prev[edge] = currentKey;
-        q.enqueue(edge);
+      if (visited.has(edge)) {
+        // go to next edge
+        continue;
       }
+
+      prev[edge] = currentKey;
+
+      if (edge === targetKey) {
+        // found target
+        break search;
+      }
+
+      q.enqueue(edge);
     }
 
     visited.add(currentKey);
   }
 
+  // reconstruct path
   const path = [];
 
   if (prev[targetKey] !== undefined || targetKey === sourceKey) {
