@@ -94,6 +94,7 @@ export function knightMoves(graph, source, target) {
   q.enqueue(sourceKey);
 
   // bfs
+  // see dijkstra's algorithm
   search: while (!q.isEmpty()) {
     const currentKey = q.dequeue();
     const edges = graph[currentKey].edges;
